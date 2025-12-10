@@ -1,0 +1,29 @@
+# ---------- Build stage ---------
+FROM node:18-alpine AS build
+WORKDIR /app
+COPY package.json package-lock.json* yarn.lock* ./
+RUN npm ci --omit=optional
+COPY . .
+RUN npm run build
+# ---------- Runtime stage ---------
+FROM nginx:alpine
+COPY --from=build /app/out /usr/share/nginx/html
+EXPOSE 80
+# default CMD from nginx
+# nginx.conf (optional SPA fallback)
+server {
+  listen 80;
+  server_name _;
+  root /usr/share/nginx/html;
+  location / {
+    try_files $uri /index.html;
+  }
+}
+# .dockerignore
+node_modules
+.next
+.out
+.git
+*.log
+.vscode
+.idea
