@@ -2,6 +2,7 @@
 name: Azure Static Web Apps (Next.js static)
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
