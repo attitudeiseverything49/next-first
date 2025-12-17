@@ -21,7 +21,7 @@ jobs:
           node-version: '20.10'  # or '20.9'
 
       # Install and build
-      - run: npm ci
+      - run: npm i
       - run: npm run build
 
       # Upload the static export to SWA without building on the action
