@@ -3,6 +3,23 @@ name: Azure Static Web Apps (Next.js static)
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'main'
+      version:
+        description: 'Application version'
+        required: true
+      logLevel:
+        description: 'Log level'
+        required: false
+        default: 'info'
+        type: choice
+        options:
+        - info
+        - warn
+        - debug
   push:
     branches: [ main ]
   pull_request:
